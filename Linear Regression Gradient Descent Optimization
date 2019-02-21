@@ -1,7 +1,7 @@
 #Linear Regression By Gradient Descent
 #Gradient Descent is the process of minimizing a function by following the gradients of the cost function.
  #y= B0 +B1 * x
-setwd("C:/Users/403351/Desktop/Raghu/R")
+setwd("C:/Users/Desktop/Raghu/R")
 getwd()
 
 ###Load the Data
