@@ -1,0 +1,26 @@
+% Data Load
+  data = load('ex1data1.txt')
+% Assign Variable
+  X= [ones(m,1),data(:,1)];
+  y = data(:,2);
+  m = length(y);
+  num_iters = 1500;
+  alpha = 0.01;
+  theta = [0;0]
+  theta = [-1;2]
+% Plot Data
+  plot(X(:,2), y, 'rx', 'MarkerSize', 10); 
+  ylabel('Profit in $10,000s'); 
+  xlabel('Population of City in 10,000s');
+% Cost Function 
+  J = (1/(2*m)) * sum(((X * theta) - y) .^2)
+% Gradient Descent
+  J_history = zeros(num_iters, 1);
+  for iter = 1:num_iters
+  theta_0 = theta(1) - alpha / m * sum(X * theta - y);
+  theta_1 = theta(2) - alpha / m * sum((X * theta - y) .* X(:, 2));
+  theta = [theta_0; theta_1];
+  theta
+  J_history(iter) = (1/(2*m)) * sum(((X * theta) - y) .^2);
+  end
+  disp(min(J_history));
