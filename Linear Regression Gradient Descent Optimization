@@ -1,12 +1,13 @@
 #Linear Regression By Gradient Descent
 #Gradient Descent is the process of minimizing a function by following the gradients of the cost function.
  #y= B0 +B1 * x
-setwd("C:/Users/Desktop/Raghu/R")
+setwd("C:/Users/403351/Desktop/R Pratice/Stanford/machine-learning-ex1/ex1")
 getwd()
 
 ###Load the Data
 data <- read.table("ex1data1.txt",sep= ",")
 data
+plotdata<- as.data.frame(data)
 str(data)
 A <- as.data.frame(rep(1,nrow(data[1])))
 X <- data[1]
@@ -17,6 +18,8 @@ str(X)
 X <- as.matrix(X)
 y <- data[2]
 m <- nrow(data)
+iteration <- 1500
+
 
 #Compute Cost Function 
 
@@ -26,24 +29,32 @@ m <- nrow(data)
     J = (1/(2*m)) * sum(((X %*% theta) - y)^2)
     print(J)
   }
-  cost_function(X,y,m,theta=c(0.0))
+  cost_function(X,y,m,theta=c(0,0))
   cost_function(X,y,m,theta=c(-1,2))
 
 
 # Gradient Descent
-  gradient_descent_function = function (X,y,theta,alpha,iteration)
+ gradient_descent_function = function (X,y,theta,alpha,iteration)
   {
+    
     m= nrow(X)
-    J_history = rep(0,iteration)
+    J_history = as.matrix(rep(0,iteration))
     theta=as.matrix(theta,1,2)
     for(i in 1:iteration)
     {
-      theta_0 = theta[1] - (alpha / m * sum((X %*% theta) - y))
-      theta_1 = theta[2] - (alpha / m * sum((X %*% theta) - y) * X[2])
-      theta = as.matrix(c(theta_0,theta_1),1,2)
-      print(theta)
+      ##print(theta[1])
+      ##print(theta[2])
+      theta_0 = theta[1] - (alpha / m) * sum((X %*% theta) - y)
+      theta_1 = theta[2] - (alpha / m) * sum((X %*% theta - y) * X[2])
+      ##print(theta_0)
+      ##print(theta_1)
+      theta = c(theta_0,theta_1)    ##as.matrix(c(theta_0,theta_1),1,2)
+      ##print(theta)
       ##print(i)
-      J_history = cost_function(X,y,m,theta)   
+      J_history[iteration] = cost_function(X,y,m,theta) 
+     ## print(J_history)
     }
+    plot(plotdata$V1,plotdata$V2)
+    abline(theta[1],theta[2])
   }
-  gradient_descent_function(X,y,theta=c(0,0),0.1,50)
+ gradient_descent_function(X,y,theta=c(-1,2),0.1,1500)
