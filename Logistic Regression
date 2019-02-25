@@ -1,0 +1,22 @@
+#Logistic Regression 
+getwd()
+setwd('C:/Users/403351/Desktop/R Pratice/Stanford/machine-learning-ex2/ex2')
+getwd()
+
+##
+data <- read.table('ex2data1.txt',sep=",")
+data
+X = data[,c(1,2)]
+X
+y = data[,3]
+
+##Plotting the Existing Data
+  plot(data$V1[data$V3==1],data$V2[data$V3==1],xlim=c(30,100),pch=20,ylim=c(30,100), xlab = "Exam1 Score",ylab="Exam2 Score",col="blue")
+  points(data$V1[data$V3==0],data$V2[data$V3==0],xlim=c(30,100),pch=20,ylim=c(30,100),col="red")
+  legend("topright",legend=c("Admitted","Not Admitted"),col=1:2,ncol=2,pch=20, cex = 0.65)
+
+##Compute the sigmoid function
+  sigmoid <- function(z)    {
+    z= 1/1+(exp(-z))
+  return(z)
+  }
